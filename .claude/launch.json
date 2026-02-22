@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "konmari-portfolio",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "/Users/imanarimari/Documents/dev/web/konmari-portfolio", "-p", "8888", "--no-clipboard"],
+      "port": 8888
+    }
+  ]
+}

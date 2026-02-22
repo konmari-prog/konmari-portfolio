@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>制作実績 | konmari</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&family=Inter:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+/* ━━━ SKILLS SECTION ━━━ */
+#skills-wrap {
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+#skills-wrap::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--mt2) 0%, transparent 70%);
+  bottom: -80px; left: -60px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.skills-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-top: 8px;
+}
+.skill-block {
+  background: var(--white);
+  border-radius: 28px;
+  padding: 36px 32px;
+  border: 1px solid rgba(255,170,200,0.2);
+  position: relative;
+  overflow: hidden;
+}
+.skill-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+.skill-block.design::before {
+  background: linear-gradient(90deg, var(--lv1), var(--pk1));
+}
+.skill-block.biz::before {
+  background: linear-gradient(90deg, var(--mt1), var(--mt2));
+}
+.skill-block-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.skill-block-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.skill-block.design .skill-block-icon {
+  background: var(--lv2);
+}
+.skill-block.design .skill-block-icon .material-icons { color: var(--lv3); font-size: 24px; }
+.skill-block.biz .skill-block-icon {
+  background: var(--mt2);
+}
+.skill-block.biz .skill-block-icon .material-icons { color: #3a8f72; font-size: 24px; }
+.skill-block-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tx1);
+  line-height: 1.3;
+}
+.skill-block-sub {
+  font-size: 12px;
+  color: var(--tx3);
+  margin-top: 2px;
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-tag {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--tx1);
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 7px 14px;
+  border: 1px solid rgba(255,170,200,0.25);
+  line-height: 1.3;
+  transition: background 0.2s, transform 0.2s;
+}
+.skill-tag:hover { background: var(--lv2); transform: translateY(-1px); }
+.skill-block.biz .skill-tag { border-color: rgba(181,217,203,0.4); }
+.skill-block.biz .skill-tag:hover { background: var(--mt2); }
+
+@media (max-width: 1024px) {
+  .skills-cols { grid-template-columns: 1fr; }
+}
+
+/* ━━━ PACKAGE DESIGN CARD ━━━ */
+.work-card-visual-package {
+  background: linear-gradient(145deg, #e8f4f1 0%, #fef6e8 100%);
+  padding: 24px 20px 0;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+.package-duo {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  position: relative;
+  z-index: 1;
+}
+.work-card-visual-package .package-duo img {
+  position: static;
+  width: calc(50% - 5px);
+  height: auto;
+  max-height: 195px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.16));
+  transition: transform 0.35s ease;
+}
+.work-card-visual-package .package-duo img:first-child { transform: rotate(-2.5deg); }
+.work-card-visual-package .package-duo img:last-child  { transform: rotate(2deg); }
+.work-card:hover .work-card-visual-package .package-duo img:first-child { transform: rotate(-2.5deg) translateY(-8px); }
+.work-card:hover .work-card-visual-package .package-duo img:last-child  { transform: rotate(2deg)   translateY(-5px); }
+.award-badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  background: linear-gradient(135deg, #d4a043, #b8740c);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 5px 13px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.3px;
+  z-index: 2;
+  box-shadow: 0 3px 10px rgba(180,130,0,0.28);
+}
+.award-badge .material-icons { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="scroll-indicator" id="scrollBar"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">kon<span>mari</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">ホーム</a></li>
+    <li><a href="works.html" class="active">制作実績</a></li>
+    <li><a href="gallery.html">ギャラリー</a></li>
+    <li><a href="index.html#speaking-wrap">登壇履歴</a></li>
+    <li><a href="https://note.com/konmari" target="_blank" rel="noopener">note</a></li>
+  </ul>
+  <a href="https://x.com/konmari_tweet" target="_blank" rel="noopener" class="nav-cta">X でフォロー</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-blob page-hero-blob-1"></div>
+  <div class="page-hero-blob page-hero-blob-2"></div>
+  <span class="page-hero-eyebrow fi">
+    <span class="material-icons">auto_awesome</span>
+    Works
+  </span>
+  <h1 class="fi delay-1">AIで<span class="accent">作ってきたもの</span>、<br>全部見せます。</h1>
+  <p class="fi delay-2">
+    デザイン制作・業務改善ツール。<br>
+    実際に動いているものだけを掲載しています。
+  </p>
+</section>
+
+<!-- Wave -->
+<div class="wave" style="background:var(--white);">
+  <svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,45 C180,90 360,5 540,45 C720,85 900,10 1080,45 C1200,68 1360,28 1440,42 L1440,90 L0,90 Z" fill="#f9f5f0"/>
+  </svg>
+</div>
+
+<!-- SKILLS / WHAT I DO -->
+<div id="skills-wrap">
+  <div class="section-inner">
+    <p class="section-eyebrow fi">できること</p>
+    <h2 class="section-title fi delay-1">デザイン制作と、<span class="accent">業務改善。</span></h2>
+    <p class="section-lead fi delay-2">ビジュアルの力で伝わるものを作り、<br>仕組みで繰り返しの作業を解放します。</p>
+
+    <div class="skills-cols">
+      <!-- デザイン -->
+      <div class="skill-block design fi">
+        <div class="skill-block-header">
+          <div class="skill-block-icon">
+            <span class="material-icons">design_services</span>
+          </div>
+          <div>
+            <div class="skill-block-title">デザイン制作</div>
+            <div class="skill-block-sub">AIと人間の感性を掛け合わせたビジュアル</div>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">サムネイル作成</span>
+          <span class="skill-tag">バナー制作</span>
+          <span class="skill-tag">資料ブラッシュアップ</span>
+          <span class="skill-tag">パンフレット</span>
+          <span class="skill-tag">パッケージデザイン</span>
+          <span class="skill-tag">名刺</span>
+          <span class="skill-tag">SNSキャンペーン素材</span>
+          <span class="skill-tag">販売促進・店内POP</span>
+          <span class="skill-tag">チラシ（印刷入稿対応）</span>
+        </div>
+      </div>
+
+      <!-- 業務改善 -->
+      <div class="skill-block biz fi delay-1">
+        <div class="skill-block-header">
+          <div class="skill-block-icon">
+            <span class="material-icons">settings_suggest</span>
+          </div>
+          <div>
+            <div class="skill-block-title">業務改善・自動化</div>
+            <div class="skill-block-sub">GASとAIで手作業を仕組みに変える</div>
+          </div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">QR受付システム</span>
+          <span class="skill-tag">アンケート集計・自動返信ツール</span>
+          <span class="skill-tag">Chrome拡張機能</span>
+          <span class="skill-tag">Google Apps Script (GAS)</span>
+          <span class="skill-tag">ワークフロー設計</span>
+          <span class="skill-tag">コピペ不要ツール化</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wave -->
+<div class="wave" style="background:var(--cream);">
+  <svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,32 C300,78 600,12 900,52 C1100,78 1300,22 1440,38 L1440,90 L0,90 Z" fill="#fffcf9"/>
+  </svg>
+</div>
+
+<!-- WORKS -->
+<div id="works-wrap">
+  <div class="bg-shape"></div>
+  <div class="section-inner">
+    <p class="section-eyebrow fi">公開プロダクト</p>
+    <h2 class="section-title fi delay-1">AI×デザインによる<span class="accent">プロダクト</span></h2>
+    <p class="section-lead fi delay-2">AIを使って作り、今も現役で動いているプロダクトたち。</p>
+
+    <div class="works-grid">
+
+      <!-- 北海道グミ パッケージデザイン -->
+      <a href="https://www.fmnorth.co.jp/topics/1453/" target="_blank" rel="noopener" class="work-card fi">
+        <div class="work-card-visual work-card-visual-package">
+          <div class="award-badge">
+            <span class="material-icons">emoji_events</span>
+            GRAND PRIX 受賞
+          </div>
+          <div class="package-duo">
+            <img src="assets/images/works-sakewo-hokkaido-gummy-milk.png"
+                 alt="北海道グミ ミルクソフトクリーム味"
+                 onerror="this.style.display='none'">
+            <img src="assets/images/works-sakewo-hokkaido-gummy-melon.png"
+                 alt="北海道グミ メロンソフトクリーム味"
+                 onerror="this.style.display='none'">
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-category">Package Design</div>
+          <h3 class="work-card-title">北海道グミ パッケージデザイン</h3>
+          <p class="work-card-desc">株式会社しゃけを様の北海道グミ（ミルクソフトクリーム味・メロンソフトクリーム味）のパッケージを担当。第4回「北海道お土産グランプリ」スイーツ部門グランプリを受賞。</p>
+          <div class="work-card-footer">
+            <div class="work-card-tags">
+              <span class="work-card-tag">パッケージデザイン</span>
+              <span class="work-card-tag">受賞実績</span>
+            </div>
+            <div class="work-card-arrow">
+              <span class="material-icons">arrow_outward</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://konmari-prog.github.io/konmariprompt/" target="_blank" rel="noopener" class="work-card fi">
+        <div class="work-card-visual">
+          <div class="work-card-visual-deco work-card-visual-deco-1"></div>
+          <div class="work-card-visual-deco work-card-visual-deco-2"></div>
+          <img src="assets/images/snack_package.png" alt="コンマリプロンプト"
+               onerror="this.style.display='none'">
+          <div class="work-card-visual-icon">
+            <span class="material-icons">auto_awesome</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-category">Prompt Gallery</div>
+          <h3 class="work-card-title">コンマリプロンプト</h3>
+          <p class="work-card-desc">Midjourney・niji・journeyで使えるプロンプトをまとめたギャラリーサイト。商品写真・広告ビジュアル・キャラクターなど多ジャンル対応。すぐ使えるプロンプト集として公開中。</p>
+          <div class="work-card-footer">
+            <div class="work-card-tags">
+              <span class="work-card-tag">Midjourney</span>
+              <span class="work-card-tag">niji・journey</span>
+            </div>
+            <div class="work-card-arrow">
+              <span class="material-icons">arrow_outward</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <div class="work-card fi delay-1">
+        <div class="work-card-visual lightbox-trigger" onclick="openLightbox('assets/images/banner_radio.png', 'Voicy番組バナー制作')" style="cursor:zoom-in;">
+          <div class="work-card-visual-deco work-card-visual-deco-1"></div>
+          <div class="work-card-visual-deco work-card-visual-deco-2"></div>
+          <img src="assets/images/banner_radio.png" alt="Voicy番組バナー制作"
+               onerror="this.style.display='none'">
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-category">Banner Design</div>
+          <h3 class="work-card-title">Voicy番組バナー制作</h3>
+          <p class="work-card-desc">AIと自動化を学べるVoicy番組「AIで仕事がちょっと楽になるラジオ」のバナーデザインを担当。</p>
+          <div class="work-card-footer">
+            <div class="work-card-tags">
+              <span class="work-card-tag">バナー制作</span>
+              <span class="work-card-tag">Voicy</span>
+              <span class="work-card-tag">SNS素材</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card fi delay-1">
+        <div class="work-card-visual lightbox-trigger" onclick="openLightbox('assets/images/flyer_shibetsu.png', '標津町 Instagram告知デザイン')" style="cursor:zoom-in;">
+          <div class="work-card-visual-deco work-card-visual-deco-1"></div>
+          <div class="work-card-visual-deco work-card-visual-deco-2"></div>
+          <img src="assets/images/flyer_shibetsu.png" alt="標津町 Instagram告知デザイン"
+               onerror="this.style.display='none'">
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-category">Flyer Design</div>
+          <h3 class="work-card-title">標津町 Instagram告知デザイン</h3>
+          <p class="work-card-desc">北海道標津町のInstagram開設に伴う告知チラシ。ご当地キャラクターと自然写真を組み合わせたデザイン。</p>
+          <div class="work-card-footer">
+            <div class="work-card-tags">
+              <span class="work-card-tag">チラシ</span>
+              <span class="work-card-tag">自治体</span>
+              <span class="work-card-tag">SNS告知</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card fi delay-1">
+        <div class="work-card-visual lightbox-trigger" onclick="openLightbox('assets/images/flyer_bucho.png', 'バックオフィス支援サービス チラシ')" style="cursor:zoom-in;">
+          <div class="work-card-visual-deco work-card-visual-deco-1"></div>
+          <div class="work-card-visual-deco work-card-visual-deco-2"></div>
+          <img src="assets/images/flyer_bucho.png" alt="バックオフィス支援サービス チラシ"
+               onerror="this.style.display='none'">
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-category">Flyer Design</div>
+          <h3 class="work-card-title">バックオフィス支援サービス チラシ</h3>
+          <p class="work-card-desc">管理部長のアウトソーシングサービス「ブチョウ」の営業用チラシ。サービス内容を整理した情報量の多いレイアウト。</p>
+          <div class="work-card-footer">
+            <div class="work-card-tags">
+              <span class="work-card-tag">チラシ</span>
+              <span class="work-card-tag">BtoB</span>
+              <span class="work-card-tag">サービス紹介</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card fi delay-1">
+        <div class="work-card-visual lightbox-trigger" onclick="openLightbox('assets/images/banner_course.png', 'オンラインコース バナー制作')" style="cursor:zoom-in;">
+          <div class="work-card-visual-deco work-card-visual-deco-1"></div>
+          <div class="work-card-visual-deco work-card-visual-deco-2"></div>
+          <img src="assets/images/banner_course.png" alt="オンラインコース バナー制作"
+               onerror="this.style.display='none'">
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-category">Banner Design</div>
+          <h3 class="work-card-title">オンラインコース バナー制作</h3>
+          <p class="work-card-desc">「一発解決！仕事術 シーン別即実践コース」のSNSバナー。グラデーション×人物写真の組み合わせ。</p>
+          <div class="work-card-footer">
+            <div class="work-card-tags">
+              <span class="work-card-tag">バナー制作</span>
+              <span class="work-card-tag">コース告知</span>
+              <span class="work-card-tag">SNS素材</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card fi delay-1" style="cursor:default; opacity:0.65;">
+        <div class="work-card-visual" style="background:linear-gradient(135deg,#e8e8e8,#f0f0f0);">
+          <div class="work-card-visual-icon" style="opacity:0.4;">
+            <span class="material-icons">lock</span>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-category">Coming Soon</div>
+          <h3 class="work-card-title">次回作、準備中。</h3>
+          <p class="work-card-desc">新しいプロダクトを制作中です。X(@konmari_tweet)をフォローして最新情報をチェックしてください。</p>
+          <div class="work-card-footer">
+            <div class="work-card-tags">
+              <span class="work-card-tag">近日公開</span>
+            </div>
+            <div class="work-card-arrow">
+              <span class="material-icons">lock</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wave -->
+<div class="wave" style="background:var(--cream);">
+  <svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,42 C240,85 480,12 720,52 C960,85 1200,20 1440,42 L1440,90 L0,90 Z" fill="#fffcf9"/>
+  </svg>
+</div>
+
+<!-- REFERENCE PRICING -->
+<div id="pricing-wrap" style="background:var(--white);">
+  <div class="bg-shape"></div>
+  <div class="section-inner narrow">
+    <p class="section-eyebrow fi">参考料金</p>
+    <h2 class="section-title fi delay-1">料金の<span class="accent">目安。</span></h2>
+    <p class="section-lead fi delay-2">相談の際の参考としてご覧ください。<br>案件内容・規模・納期によって変動します。</p>
+
+    <div class="pricing-availability fi">
+      <span class="material-icons">info</span>
+      <span>現在、積極的な新規受注はお休み中です。料金はご相談の際の目安としてお使いください。まずはXでお気軽に話しかけてみてください。</span>
+    </div>
+
+    <div class="pricing-grid fi delay-1">
+      <div class="price-card">
+        <div class="price-card-left">
+          <div class="price-card-name">サムネイル（セミナー・YouTube）</div>
+          <div class="price-card-note">バリエーション違いは割引あり</div>
+        </div>
+        <div class="price-amount">¥10,000〜</div>
+      </div>
+      <div class="price-card">
+        <div class="price-card-left">
+          <div class="price-card-name">バナー・縦型広告</div>
+          <div class="price-card-note">サイズ展開は別途相談</div>
+        </div>
+        <div class="price-amount">¥10,000〜</div>
+      </div>
+      <div class="price-card">
+        <div class="price-card-left">
+          <div class="price-card-name">資料ブラッシュアップ</div>
+          <div class="price-card-note">ページ数×単価で見積もり</div>
+        </div>
+        <div class="price-amount">¥3,000〜</div>
+      </div>
+      <div class="price-card">
+        <div class="price-card-left">
+          <div class="price-card-name">展示会チラシ（A4両面）</div>
+          <div class="price-card-note">入稿データ込み</div>
+        </div>
+        <div class="price-amount">¥20,000〜</div>
+      </div>
+      <div class="price-card">
+        <div class="price-card-left">
+          <div class="price-card-name">展示会パンフレット（3折）</div>
+          <div class="price-card-note">入稿データ込み</div>
+        </div>
+        <div class="price-amount">¥30,000〜</div>
+      </div>
+      <div class="price-card">
+        <div class="price-card-left">
+          <div class="price-card-name">初回ヒアリング型デザイン <span class="badge badge-pk">要相談</span></div>
+          <div class="price-card-note">初回のみの価格。以降¥3,000〜/時間に移行</div>
+        </div>
+        <div class="price-amount">¥10,000 / 初回</div>
+      </div>
+      <div class="price-card wide">
+        <div class="price-card-left">
+          <div class="price-card-name">AIセミナー登壇・講師 <span class="badge badge-lv">要相談</span></div>
+          <div class="price-card-note">内容・時間・会場規模により変動</div>
+        </div>
+        <div class="price-amount" style="font-size:14px; color:var(--tx2);">別途お見積もり</div>
+      </div>
+    </div>
+
+    <div class="pricing-note fi delay-2">
+      <span class="material-icons">info</span>
+      <span>すべて税抜き表示です。月末締め・翌月末払い。修正は初稿後2回まで無料。著作権は納品・入金完了後に移転します。</span>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <a href="index.html" class="footer-logo">kon<span>mari</span></a>
+  <p>© 2026 konmari (@konmari_tweet). All rights reserved.</p>
+  <ul class="footer-links">
+    <li><a href="index.html#about-wrap">About</a></li>
+    <li><a href="works.html">Works</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="index.html#speaking-wrap">登壇</a></li>
+    <li><a href="https://note.com/konmari" target="_blank" rel="noopener">note</a></li>
+    <li><a href="https://x.com/konmari_tweet" target="_blank" rel="noopener">X</a></li>
+  </ul>
+</footer>
+
+<script>
+// スクロールプログレスバー
+const scrollBar = document.getElementById('scrollBar');
+window.addEventListener('scroll', () => {
+  const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  scrollBar.style.width = scrolled + '%';
+}, { passive: true });
+
+// Nav scroll
+const mainNav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  mainNav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Gallery tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.gallery-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Fade-in
+document.addEventListener('DOMContentLoaded', () => {
+  const items = Array.from(document.querySelectorAll('.fi'));
+  const show = el => el.classList.add('visible');
+  if (!('IntersectionObserver' in window)) { items.forEach(show); return; }
+  const io = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { show(entry.target); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.06 });
+  items.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92) show(el);
+    else io.observe(el);
+  });
+});
+
+// ライトボックス
+function openLightbox(src, alt) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  img.alt = alt;
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// 画像ロードエラーハンドリング
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('img[onerror]').forEach(img => {
+    if (img.complete && img.naturalWidth === 0) img.dispatchEvent(new Event('error'));
+  });
+});
+</script>
+<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(6px);">
+  <button onclick="closeLightbox()" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;">
+    <span class="material-icons" style="font-size:36px;">close</span>
+  </button>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" style="max-width:92vw;max-height:92vh;object-fit:contain;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+</div>
+<style>
+#lightbox { display:flex!important; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+#lightbox.active { opacity:1; pointer-events:all; }
+</style>
+</body>
+</html>
