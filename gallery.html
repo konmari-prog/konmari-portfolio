@@ -86,6 +86,26 @@
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="画像拡大表示">
+  <div class="lb-backdrop" id="lbBackdrop"></div>
+  <div class="lb-container">
+    <button class="lb-close" id="lbClose" aria-label="閉じる">
+      <span class="material-icons">close</span>
+    </button>
+    <div class="lb-img-wrap" id="lbImgWrap">
+      <img id="lbImg" src="" alt="" draggable="false">
+      <div class="lb-wm" aria-hidden="true"></div>
+    </div>
+    <button class="lb-prev" id="lbPrev" aria-label="前の画像">
+      <span class="material-icons">chevron_left</span>
+    </button>
+    <button class="lb-next" id="lbNext" aria-label="次の画像">
+      <span class="material-icons">chevron_right</span>
+    </button>
+  </div>
+</div>
+
 <!-- Footer -->
 <footer>
   <a href="index.html" class="footer-logo">kon<span>mari</span></a>
@@ -114,27 +134,33 @@ window.addEventListener('scroll', () => {
   mainNav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-// ギャラリー動的レンダリング
-function renderGalleryItem(item) {
+// ━━━ ギャラリー ━━━
+let allItems = [];        // 全画像リスト（tab付き）
+let currentTab = 'photo'; // 表示中タブ
+let currentIndex = 0;     // ライトボックスの現在位置
+
+// ラベルなし・クリックでライトボックス開くアイテムを生成
+function renderGalleryItem(item, globalIndex) {
   const div = document.createElement('div');
   div.className = 'gallery-item';
+  div.dataset.index = globalIndex;
   div.innerHTML = `
-    <img src="${item.src}" alt="${item.label}"
+    <img src="${item.src}" alt=""
+         draggable="false"
          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="gallery-item-ph" style="display:none;"><span class="material-icons">image</span></div>
-    <div class="gallery-item-overlay">
-      <span class="gallery-item-label">${item.label}</span>
-    </div>`;
+    <div class="gallery-item-ph" style="display:none;"><span class="material-icons">image</span></div>`;
+  div.addEventListener('click', () => openLightbox(globalIndex));
   return div;
 }
 
 fetch('gallery-data.json')
   .then(r => r.json())
   .then(data => {
+    allItems = data.items;
     const photoGrid  = document.getElementById('grid-photo');
     const illustGrid = document.getElementById('grid-illust');
-    data.items.forEach(item => {
-      const el = renderGalleryItem(item);
+    data.items.forEach((item, i) => {
+      const el = renderGalleryItem(item, i);
       (item.tab === 'illust' ? illustGrid : photoGrid).appendChild(el);
     });
   })
@@ -149,11 +175,78 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.gallery-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    currentTab = btn.dataset.tab;
+    document.getElementById('tab-' + currentTab).classList.add('active');
   });
 });
 
-// Fade-in
+// ━━━ ライトボックス ━━━
+const lightbox  = document.getElementById('lightbox');
+const lbImg     = document.getElementById('lbImg');
+const lbBackdrop = document.getElementById('lbBackdrop');
+const lbClose   = document.getElementById('lbClose');
+const lbPrev    = document.getElementById('lbPrev');
+const lbNext    = document.getElementById('lbNext');
+
+function getTabItems() {
+  return allItems.map((item, i) => ({ ...item, globalIndex: i }))
+                 .filter(item => item.tab === currentTab);
+}
+
+function openLightbox(globalIndex) {
+  const tabItems = getTabItems();
+  const pos = tabItems.findIndex(item => item.globalIndex === globalIndex);
+  currentIndex = pos >= 0 ? pos : 0;
+  showImage(tabItems);
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+  lbImg.src = '';
+}
+
+function showImage(tabItems) {
+  const item = tabItems[currentIndex];
+  if (!item) return;
+  lbImg.src = item.src;
+  lbPrev.style.visibility = currentIndex > 0 ? 'visible' : 'hidden';
+  lbNext.style.visibility = currentIndex < tabItems.length - 1 ? 'visible' : 'hidden';
+}
+
+lbClose.addEventListener('click', closeLightbox);
+lbBackdrop.addEventListener('click', closeLightbox);
+
+lbPrev.addEventListener('click', () => {
+  const tabItems = getTabItems();
+  if (currentIndex > 0) { currentIndex--; showImage(tabItems); }
+});
+
+lbNext.addEventListener('click', () => {
+  const tabItems = getTabItems();
+  if (currentIndex < tabItems.length - 1) { currentIndex++; showImage(tabItems); }
+});
+
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  const tabItems = getTabItems();
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowLeft'  && currentIndex > 0)                     { currentIndex--; showImage(tabItems); }
+  if (e.key === 'ArrowRight' && currentIndex < tabItems.length - 1)   { currentIndex++; showImage(tabItems); }
+});
+
+// ━━━ ダウンロード保護 ━━━
+// 右クリック無効
+lightbox.addEventListener('contextmenu', e => e.preventDefault());
+document.getElementById('gallery-wrap').addEventListener('contextmenu', e => e.preventDefault());
+// ドラッグ無効
+document.addEventListener('dragstart', e => {
+  if (e.target.tagName === 'IMG') e.preventDefault();
+});
+
+// ━━━ Fade-in ━━━
 document.addEventListener('DOMContentLoaded', () => {
   const items = Array.from(document.querySelectorAll('.fi'));
   const show = el => el.classList.add('visible');
@@ -167,13 +260,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight * 0.92) show(el);
     else io.observe(el);
-  });
-});
-
-// 画像ロードエラーハンドリング
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('img[onerror]').forEach(img => {
-    if (img.complete && img.naturalWidth === 0) img.dispatchEvent(new Event('error'));
   });
 });
 </script>
